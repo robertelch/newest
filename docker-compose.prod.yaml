@@ -41,7 +41,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./backend/static:/srv/assets
+      - ./backend/src/static:/srv/assets
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
