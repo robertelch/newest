@@ -1,0 +1,28 @@
+{
+    servers {
+        protocol {
+            experimental_http3
+        }
+    }
+}
+
+japtlhelper.dedyn.io {
+
+    # Serve static files at /api/assets/* directly from disk
+    handle_path /api/static/* {
+        root * /srv/assets  # Replace with the real path inside the Caddy container
+        file_server
+    }
+
+    # Reverse proxy API calls (excluding /api/assets/*)
+    handle_path /api/* {
+        reverse_proxy backend:8000
+    }
+
+    # Catch-all goes to frontend
+    handle {
+        reverse_proxy frontend:80
+    }
+
+    tls thescansite@proton.me
+}

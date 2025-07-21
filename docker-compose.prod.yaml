@@ -32,5 +32,22 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+    expose:
+      - "80"  # NICHT ports: 80:80, sondern nur intern erreichbar
+
+  caddy:
+    image: caddy:latest
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./backend/static:/srv/assets
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+
+volumes:
+  caddy_data:
+  caddy_config:
