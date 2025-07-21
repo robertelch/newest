@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: justau
+      POSTGRES_PASSWORD: xkGWKCezRQJxgyjRk8DfP6yWbdQHAYvd
+      POSTGRES_DB: scandb
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d # For SQL import
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/src:/app
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: scandb
+      DB_USER: justau
+      DB_PASSWORD: xkGWKCezRQJxgyjRk8DfP6yWbdQHAYvd
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app:delegated
+      - /app/node_modules
+

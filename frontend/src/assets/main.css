@@ -1,0 +1,145 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.body {
+  font-family: Poppins;
+  padding: 2em;
+  background-color: #f4f4f4;
+}
+
+input[type='text'] {
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.result {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #ccc;
+}
+
+.header {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.smaller {
+  font-size: 17px;
+  font-style: italic;
+  color: #666;
+}
+
+.large {
+  font-size: 20px;
+  margin-top: 5px;
+  white-space: pre-wrap;
+}
+
+.small {
+  font-size: 18px;
+  font-style: italic;
+  color: #808080;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrow-transform {
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+}
+
+.choice-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+
+.choice-container button {
+    background: white;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.arrow-rotated {
+  transform: rotate(90deg);
+}
+
+.child-container {
+  margin-top: 16px;
+}
+
+.child-spacing > * + * {
+  margin-top: 12px;
+}
+
+.child-item {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.font-img {
+    height: 40px;
+}
+
+.main-item {
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.flex-container img {
+  max-height: 100px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+#dynamic-fonts {
+  display: none;
+}
+
+.smoller {
+  height: 30px;
+}
+.icon-group {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
