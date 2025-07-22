@@ -1,6 +1,5 @@
 <template>
   <div class="body">
-
     <input
       type="text"
       class="text-[20px] w-full p-[10px] box-border rounded border border-[#ddd] bg-white"
@@ -8,7 +7,7 @@
       placeholder="Enter Romaji..."
       @input="fetchSearch"
     />
-    <MaxSearch :list="results"/>
+    <MaxSearch :list="results" />
 
     <ContentList v-for="entry in results" :key="entry.romaji">
       <div class="flex-horizontal">

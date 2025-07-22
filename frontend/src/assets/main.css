@@ -2,6 +2,13 @@ body {
   background-color: #f4f4f4;
 }
 
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
 .body {
   font-family: Poppins;
   padding: 2em;
@@ -75,18 +82,18 @@ input[type='text'] {
 }
 
 .choice-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
 }
 
 .choice-container button {
-    background: white;
-    padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px #ccc;
+  background: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #ccc;
 }
 
 .arrow-rotated {
@@ -108,7 +115,7 @@ input[type='text'] {
 }
 
 .font-img {
-    height: 40px;
+  height: 40px;
 }
 
 .main-item {

@@ -1,0 +1,38 @@
+<template>
+  <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(25,25)">
+      <circle
+        cx="0"
+        cy="0"
+        r="20"
+        fill="none"
+        stroke="#3498db"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-dasharray="90,150"
+        stroke-dashoffset="0"
+      >
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from="0"
+          to="360"
+          dur="1s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="stroke-dashoffset"
+          values="0;-35;-124"
+          dur="1.5s"
+          repeatCount="indefinite"
+        />
+        <animate
+          attributeName="stroke-dasharray"
+          values="1,150;90,150;90,150"
+          dur="1.5s"
+          repeatCount="indefinite"
+        />
+      </circle>
+    </g>
+  </svg>
+</template>

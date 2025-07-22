@@ -7,7 +7,7 @@
       placeholder="Search the Fonts..."
       @input="fetchSearch"
     />
-    <MaxSearch :list="results"/>
+    <MaxSearch :list="results" />
     <ContentList
       v-for="entry in results"
       :key="entry.name"
@@ -16,7 +16,7 @@
     >
       <img class="font-img" :src="getDisplayFont(entry)" alt="Font Display" />
       <ContentButtons>
-        <ArrowDown :size="40" :class="{ 'arrow-rotated': isExpanded(entry.name) }"/>
+        <ArrowDown :size="40" :class="{ 'arrow-rotated': isExpanded(entry.name) }" />
         <Download :size="40" @click.stop="downloadBatch(entry)" />
       </ContentButtons>
 
@@ -27,7 +27,7 @@
         @click="downloadFont(font)"
         class="cursor-pointer"
       >
-        <img class="h-8"  :src="getFontPreview(font)" alt="Font Family" />
+        <img class="h-8" :src="getFontPreview(font)" alt="Font Family" />
         <ContentButtons>
           <Download class="h-8 choice-container" :size="30" />
         </ContentButtons>

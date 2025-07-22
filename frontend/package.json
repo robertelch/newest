@@ -13,11 +13,14 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@imagemagick/magick-wasm": "^0.0.35",
     "@tailwindcss/vite": "^4.1.11",
     "jszip": "^3.10.1",
     "lucide-vue-next": "^0.525.0",
     "vue": "^3.5.17",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "vue-slider-component": "^4.1.0-beta.7",
+    "wasm-imagemagick": "^1.2.8"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",

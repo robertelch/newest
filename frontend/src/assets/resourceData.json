@@ -6,6 +6,12 @@
     "link": "./fonts"
   },
   {
+    "tags": ["On-Site", "RP", "GL"],
+    "name": "File Converter",
+    "description": "An image file converter that can turn most image formats (including PSDs) into commonly used ones",
+    "link": "./image/convert"
+  },
+  {
     "tags": ["On-Site", "TL"],
     "name": "SFX Database",
     "description": "A browsable collection of translations for many SFX compiled from multiple different sources",

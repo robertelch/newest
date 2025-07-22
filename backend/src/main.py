@@ -9,7 +9,8 @@ app = FastAPI()
 
 
 origins = [
-    "http://localhost:80",  # Hier deine Frontend-URL
+    "http://localhost:80",
+    "http://localhost:5173",  # Hier deine Frontend-URL
     "https://scanlation-helper.dedyn.io",  # Optional, falls Backend auch mal direkt aufgerufen wird
     # Oder "*" für alle erlauben, aber eher nicht empfohlen
 ]

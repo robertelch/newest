@@ -20,8 +20,8 @@ const props = defineProps({
   results: Array,
   placeholder: {
     type: String,
-    default: 'Search...'
-  }
+    default: 'Search...',
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])

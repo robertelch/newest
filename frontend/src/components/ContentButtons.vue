@@ -1,5 +1,5 @@
 <template>
-    <div class="choice-container">
-        <slot />
-    </div>
+  <div class="choice-container">
+    <slot />
+  </div>
 </template>
