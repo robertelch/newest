@@ -72,8 +72,7 @@ import Spinner from '@/components/Spinner.vue'
 import { MagickFormat } from '@imagemagick/magick-wasm'
 import Worker from "../workers/ImgWorker?worker"
 import JSZip from 'jszip';
-import Slider from '@/components/Slider.vue';
-import { ArrowDown } from 'lucide-vue-next';
+
 
 
 const formats = ['PNG', 'JPG', 'BMP', 'PSD', 'XCR'] as MagickFormat[]
@@ -104,6 +103,8 @@ const advancedSettings: Partial<Record<MagickFormat, Record<string, {min: number
   }
 }
 
+import { convertWithWorker } from '@/utils/workerManager' // or wherever you store it
+
 const convertFile = (file: File): Promise<{ url: string, fileName: string, blob: Blob }> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -111,15 +112,12 @@ const convertFile = (file: File): Promise<{ url: string, fileName: string, blob:
       const fileBuffer = reader.result;
       if (!(fileBuffer instanceof ArrayBuffer)) return reject('Invalid file buffer');
 
-      const localWorker = new Worker();
-
-      localWorker.onmessage = (e) => {
-        resolve({url: URL.createObjectURL(e.data.blob), fileName: e.data.fileName, blob: e.data.blob});
-        imageProgress.value++
-        localWorker.terminate();
-      };
-
-      localWorker.postMessage({ fileBuffer, format: format.value, fileName: file.name });
+      convertWithWorker(fileBuffer, format.value, file.name)
+        .then((result) => {
+          imageProgress.value++
+          resolve(result)
+        })
+        .catch(reject)
     };
     reader.onerror = reject;
     reader.readAsArrayBuffer(file);
