@@ -162,7 +162,7 @@ async function downloadZip() {
   const zip = new JSZip();
 
   convertedUrls.value.forEach((item, index) => {
-    const fileName = item.fileName.split('.')[0] + format.value.toLowerCase() || `file${index + 1}.bin`;
+    const fileName = item.fileName.split('.')[0] + "." + format.value.toLowerCase() || `file${index + 1}.bin`;
     zip.file(fileName, item.blob);
   });
 
