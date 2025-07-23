@@ -38,7 +38,8 @@ type SFX = {
   hidden?: boolean
 }
 const results = ref<SFX[]>([])
-
+console.log(API_URL)
+console.log(import.meta.env.VITE_API_URL)
 const search = ref('')
 
 async function fetchSearch() {
