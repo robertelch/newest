@@ -1,5 +1,5 @@
 // workerManager.ts
-import Worker from "../workers/ImgWorker?worker"
+import Worker from '../workers/ImgWorker?worker'
 
 type Job = {
   resolve: (data: any) => void
@@ -20,7 +20,11 @@ worker.onmessage = (e) => {
   }
 }
 
-export function convertWithWorker(fileBuffer: ArrayBuffer, format: string, fileName: string): Promise<{ url: string, fileName: string, blob: Blob }> {
+export function convertWithWorker(
+  fileBuffer: ArrayBuffer,
+  format: string,
+  fileName: string,
+): Promise<{ url: string; fileName: string; blob: Blob }> {
   return new Promise((resolve, reject) => {
     const id = jobId++
     jobMap.set(id, { resolve, reject })

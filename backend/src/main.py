@@ -2,25 +2,26 @@ from fastapi import FastAPI
 from api import sfx, fonts
 from tortoise.contrib.fastapi import register_tortoise
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 import os
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
+app.add_middleware(GZipMiddleware)
 
 origins = [
     "http://localhost:80",
-    "http://localhost:5173",  # Hier deine Frontend-URL
-    "https://scanlation-helper.dedyn.io",  # Optional, falls Backend auch mal direkt aufgerufen wird
-    # Oder "*" für alle erlauben, aber eher nicht empfohlen
+    "http://localhost:5173",
+    "https://scanlation-helper.dedyn.io",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Erlaubte Domains
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],  # Erlaubt alle HTTP-Methoden
-    allow_headers=["*"],  # Erlaubt alle Header
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

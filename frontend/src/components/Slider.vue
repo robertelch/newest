@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center space-x-4 ">
+  <div class="flex items-center space-x-4">
     <label :for="id" class="w-16">{{ label }}</label>
 
     <input
@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, watch, toRefs } from 'vue'
 
 const props = defineProps({
@@ -55,7 +55,7 @@ const internalValue = ref(modelValue.value)
 
 // Clamp the value to min/max when user types
 function clampValue(e) {
-  let val = parseFloat(e.target.valueAsNumber);
+  let val = parseFloat(e.target.valueAsNumber)
   if (isNaN(val)) val = internalValue.value // Ignore if invalid input
   if (val < min.value) val = min.value
   if (val > max.value) val = max.value

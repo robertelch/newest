@@ -1,6 +1,7 @@
 from tortoise import Tortoise, fields
 from tortoise.models import Model
 from tortoise.contrib.pydantic import pydantic_model_creator
+
 class JapaneseSFX(Model):
     romaji = fields.TextField(pk=True)
     katakana = fields.TextField()
@@ -36,4 +37,4 @@ Tortoise.init_models(["database.models"], "models")
 
 FontFamilyPydantic = pydantic_model_creator(FontFamily, name="font_family")
 FontPydantic = pydantic_model_creator(Font, name="font")
-SFXPydantic = pydantic_model_creator(JapaneseSFX, name="sfx")
+SFXPydantic = pydantic_model_creator(JapaneseSFX, name="sfx", exclude=("hidden",))

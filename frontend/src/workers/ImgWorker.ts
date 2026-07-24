@@ -1,22 +1,22 @@
 // ImgWorker.ts (worker)
-import { initializeImageMagick, ImageMagick, MagickFormat } from '@imagemagick/magick-wasm';
+import { initializeImageMagick, ImageMagick, MagickFormat } from '@imagemagick/magick-wasm'
 
-let initialized = false;
+let initialized = false
 
 self.onmessage = async (event) => {
-  const { id, fileBuffer, format, fileName } = event.data;
+  const { id, fileBuffer, format, fileName } = event.data
 
   if (!initialized) {
-    await initializeImageMagick(await fetch('/magick.wasm').then(res => res.arrayBuffer()));
-    initialized = true;
+    await initializeImageMagick(await fetch('/magick.wasm').then((res) => res.arrayBuffer()))
+    initialized = true
   }
 
   const resultBlob = await ImageMagick.read(new Uint8Array(fileBuffer), async (image) => {
-    image.format = format;
+    image.format = format
     return new Promise<Blob>((resolve) => {
-      image.write((data) => resolve(new Blob([data])));
-    });
-  });
+      image.write((data) => resolve(new Blob([data])))
+    })
+  })
 
-  self.postMessage({ id, blob: resultBlob, fileName });
-};
+  self.postMessage({ id, blob: resultBlob, fileName })
+}

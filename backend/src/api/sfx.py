@@ -3,6 +3,7 @@ from database.models import JapaneseSFX, SFXPydantic
 import pykakasi
 from tortoise.expressions import Case, When
 
+print("penis")
 
 kakasi = pykakasi.kakasi()
 kakasi.setMode("H", "a")
@@ -15,6 +16,10 @@ router = APIRouter(prefix="/sfx", tags=["sfx"])
 
 @router.get("/search")
 async def search_sfx(search: str = Query(default="")):
+    search = search.replace("ー", "-")
+    converted = converter.convert(search)
+
+    print(converted, flush=True)
 
     res = JapaneseSFX.annotate(
         priority=Case(
@@ -29,5 +34,5 @@ async def search_sfx(search: str = Query(default="")):
     .all()
 
     results = await SFXPydantic.from_queryset(res)
-
+    print(results)
     return results

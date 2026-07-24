@@ -2,7 +2,7 @@
   <div class="body">
     <input
       type="text"
-      class="text-[20px] w-full p-[10px] box-border rounded border border-[#ddd] bg-white"
+      class="text-[20px] w-full p-[10px] box-border rounded border border-[#ddd] bg-foreground"
       v-model="search"
       placeholder="Search the Fonts..."
       @input="fetchSearch"
@@ -14,9 +14,9 @@
       class="cursor-pointer"
       @click="toggle(entry.name)"
     >
-      <img class="font-img" :src="getDisplayFont(entry)" alt="Font Display" />
+      <img class="h-[40px]" :src="getDisplayFont(entry)" alt="Font Display" />
       <ContentButtons>
-        <ArrowDown :size="40" :class="{ 'arrow-rotated': isExpanded(entry.name) }" />
+        <ArrowDown :size="40" :class="{ 'rotate-90': isExpanded(entry.name) }" />
         <Download :size="40" @click.stop="downloadBatch(entry)" />
       </ContentButtons>
 
@@ -29,7 +29,7 @@
       >
         <img class="h-8" :src="getFontPreview(font)" alt="Font Family" />
         <ContentButtons>
-          <Download class="h-8 choice-container" :size="30" />
+          <Download class="h-8" :size="30" />
         </ContentButtons>
       </ContentList>
     </ContentList>

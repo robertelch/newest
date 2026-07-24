@@ -1,1 +1,25 @@
 @import 'tailwindcss';
+@theme {
+  --color-foreground: var(--color-foreground);
+}
+@layer components {
+  .header {
+    @apply text-[22px] font-bold;
+    color: var(--color-text);
+  }
+
+  .smaller {
+    @apply text-[17px] italic;
+    color: var(--color-text-tertiary);
+  }
+
+  .large {
+    @apply mt-[5px] text-[20px] whitespace-pre-wrap;
+    color: var(--color-text);
+  }
+
+  .small {
+    @apply text-[18px] italic;
+    color: var(--color-text-secondary);
+  }
+}

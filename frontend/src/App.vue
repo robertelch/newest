@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HomeButton from './components/HomeButton.vue';
+import { RouterView } from 'vue-router'
+import HomeButton from './components/HomeButton.vue'
+import LightModeSwitch from './components/LightModeSwitch.vue';
 </script>
 
 <template>
   <HomeButton />
+  <LightModeSwitch />
   <Suspense>
     <RouterView />
   </Suspense>
