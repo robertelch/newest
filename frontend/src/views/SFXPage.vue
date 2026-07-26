@@ -4,7 +4,6 @@
       placeholder="Enter Romaji..."
       :results="results"
       v-model="search"
-      @input="fetchSearch"
     />
 
     <ContentList v-for="entry in results" :key="entry.romaji">
@@ -15,10 +14,6 @@
             <span class="smaller">({{ entry.romaji }})</span> :
           </div>
           <span class="large">{{ entry.meaning }}</span>
-          <!--ExplanationText
-            :explanation="entry.explanation"
-            v-model="search"
-          /-->
           <div class="small" v-if="entry.explanation">{{ entry.explanation }}</div>
         </div>
       </div>
@@ -28,12 +23,11 @@
 
 <script setup lang="ts">
 import ContentList from '@/components/ContentList.vue'
-//import ExplanationText from '@/components/SFX/ExplanationText.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import { API_URL } from '@/const'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-
+import { useDebounceFn } from '@vueuse/core'
 const route = useRoute()
 
 type SFX = {
@@ -45,12 +39,17 @@ type SFX = {
   hidden?: boolean
 }
 const results = ref<SFX[]>([])
-console.log(API_URL)
-console.log(import.meta.env.VITE_API_URL)
+
 const search = ref((route.query.search as string) || '')
 
 async function fetchSearch() {
   results.value = await (await fetch(API_URL + '/sfx/search?search=' + search.value)).json()
 }
+
+const debouncedFetchSearch = useDebounceFn(fetchSearch, 300)
+
+watch(search, () => {
+  debouncedFetchSearch()
+})
 await fetchSearch()
 </script>

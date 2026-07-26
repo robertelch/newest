@@ -25,7 +25,8 @@ app.add_middleware(
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
+print(os.path("/static"))
+print("test")
 DB_USER = os.getenv("DB_USER", "justau")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "xkGWKCezRQJxgyjRk8DfP6yWbdQHAYvd")
 DB_HOST = os.getenv("DB_HOST", "postgres")

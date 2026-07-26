@@ -2,7 +2,7 @@
   <template v-for="(part, index) in parts" :key="index">
     <a
       v-if="index % 2 === 1"
-      class="!text-blue-600 underline small hover:cursor-pointer"
+      class="underline small hover:cursor-pointer"
       @click.prevent="onClick(part)"
     >
       {{ part }}
@@ -17,7 +17,7 @@
 import { computed } from "vue"
 
 const props = defineProps<{
-  explanation: string
+  explanation: string | null
   modelValue: string
 }>()
 
@@ -30,5 +30,5 @@ function onClick(value: string) {
   emit("update:modelValue", value)
 }
 
-const parts = computed(() => props.explanation.split("*"))
+const parts = computed(() => props.explanation ? props.explanation.split("*") : [])
 </script>

@@ -12,26 +12,28 @@
       v-for="entry in results"
       :key="entry.name"
       class="cursor-pointer"
-      @click="toggle(entry.name)"
+      
     >
       <img class="h-[40px]" :src="getDisplayFont(entry)" alt="Font Display" />
       <ContentButtons>
-        <ArrowDown :size="40" :class="{ 'rotate-90': isExpanded(entry.name) }" />
+        <ArrowDown :size="40" :class="{ 'rotate-90': isExpanded(entry.name) }" @click="toggle(entry.name)" />
         <Download :size="40" @click.stop="downloadBatch(entry)" />
       </ContentButtons>
-
-      <ContentList
-        v-for="font in nonHiddenFonts(entry.fonts)"
-        :key="font.filename"
-        v-if="isExpanded(entry.name)"
-        @click="downloadFont(font)"
-        class="cursor-pointer"
+      <div
+         v-if="isExpanded(entry.name)"  
       >
-        <img class="h-8" :src="getFontPreview(font)" alt="Font Family" />
-        <ContentButtons>
-          <Download class="h-8" :size="30" />
-        </ContentButtons>
-      </ContentList>
+        <ContentList
+          v-for="font in nonHiddenFonts(entry.fonts)"
+          :key="font.filename"
+          @click="downloadFont(font)"
+          class="cursor-pointer"
+        >
+          <img class="h-8" :src="getFontPreview(font)" alt="Font Family" />
+          <ContentButtons>
+            <Download class="h-8" :size="30"  @click="downloadFont(font)"/>
+          </ContentButtons>
+        </ContentList>
+      </div>
     </ContentList>
   </div>
 </template>
@@ -72,9 +74,11 @@ function nonHiddenFonts(family: Font[]) {
 
 const expandedKeys = ref(new Set())
 
-const downloadFont = (font: Font) => {
+const downloadFont = async (font: Font) => {
+  const response = await fetch(API_URL + '/static/fonts/' + font.filename)
+  const downloaded_font = await response.blob()
   const link = document.createElement('a')
-  link.href = `./${font.filename}`
+  link.href = URL.createObjectURL(downloaded_font)
   link.download = font.filename
   link.click()
 }
@@ -82,10 +86,10 @@ const downloadFont = (font: Font) => {
 const downloadBatch = async (font: FontFamily) => {
   const zip = new JSZip()
 
-  let files = font.fonts.map((item) => `./${item.filename}`)
+  const files = font.fonts.map((item) => `./${item.filename}`)
 
   for (const file of files) {
-    const response = await fetch(API_URL + '/static/fonts/' + file)
+    const response = await fetch(API_URL + '/static/fonts/' + file) 
     const blob = await response.blob()
     const filename: string = file.split('/').pop() || ''
     zip.file(filename, blob)

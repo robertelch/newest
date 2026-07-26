@@ -5,8 +5,9 @@
 
     <ContentList v-for="res in resources" :key="res.name">
       <a
-        :href="res.link"
-        class="flex items-center gap-2.5 w-full"
+      
+        @click="goLink(res.link)"
+        class="flex items-center gap-2.5 w-full cursor-pointer"
         style="text-decoration: none; color: inherit"
       >
         <img
@@ -36,7 +37,8 @@ import ContentList from '@/components/ContentList.vue'
 import resourcesData from '../assets/resourceData.json'
 import { ref } from 'vue'
 import { ExternalLink } from 'lucide-vue-next'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 type Entry = {
   tags: string[]
   name: string
@@ -46,4 +48,14 @@ type Entry = {
 }
 
 const resources = ref(resourcesData as Entry[])
+
+const goLink = (link: string): void => {
+  if (link.startsWith("/")) {
+    router.push(link)
+  }
+  else {
+    window.open(link, '_blank')
+  }
+}
+
 </script>

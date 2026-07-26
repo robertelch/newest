@@ -1,5 +1,5 @@
 <template>
   <div class="flex flex-row items-center ml-auto">
-    <slot />
+    <slot></slot>
   </div>
 </template>

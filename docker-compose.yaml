@@ -20,6 +20,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend/src:/app
+      - ./static:/app/static
     environment:
       DB_HOST: postgres
       DB_PORT: 5432

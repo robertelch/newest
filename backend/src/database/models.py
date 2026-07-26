@@ -9,6 +9,7 @@ class JapaneseSFX(Model):
     meaning = fields.TextField(null=True)
     explanation = fields.TextField(null=True)
     hidden = fields.BooleanField(default=False)
+    search_name = fields.TextField(default=False)
 
     class Meta:
         table = "sfx"
@@ -37,4 +38,4 @@ Tortoise.init_models(["database.models"], "models")
 
 FontFamilyPydantic = pydantic_model_creator(FontFamily, name="font_family")
 FontPydantic = pydantic_model_creator(Font, name="font")
-SFXPydantic = pydantic_model_creator(JapaneseSFX, name="sfx", exclude=("hidden",))
+SFXPydantic = pydantic_model_creator(JapaneseSFX, name="sfx", exclude=("hidden","search_name"))
