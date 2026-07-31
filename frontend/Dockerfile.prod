@@ -3,11 +3,12 @@ FROM node:22 AS builder
 
 WORKDIR /app
 COPY . .
-RUN npm install
-RUN npm run build-only
 
 ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
+
+RUN npm install
+RUN npm run build-only
 
 # Stage 2: Serve
 FROM nginx:alpine
