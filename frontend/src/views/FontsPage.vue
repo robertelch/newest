@@ -1,39 +1,32 @@
 <template>
   <div class="body">
-    <input
-      type="text"
-      class="text-[20px] w-full p-[10px] box-border rounded border border-[#ddd] bg-foreground"
-      v-model="search"
+    <SearchBox
       placeholder="Search the Fonts..."
-      @input="fetchSearch"
+      :results="results"
+      v-model="search"
     />
-    <MaxSearch :list="results" />
     <ContentList
       v-for="entry in results"
       :key="entry.name"
       class="cursor-pointer"
-      
     >
       <img class="h-[40px]" :src="getDisplayFont(entry)" alt="Font Display" />
       <ContentButtons>
         <ArrowDown :size="40" :class="{ 'rotate-90': isExpanded(entry.name) }" @click="toggle(entry.name)" />
         <Download :size="40" @click.stop="downloadBatch(entry)" />
       </ContentButtons>
-      <div
-         v-if="isExpanded(entry.name)"  
+      <ContentList
+        v-for="font in nonHiddenFonts(entry.fonts)"
+        v-if="isExpanded(entry.name)"
+        :key="font.filename"
+        @click="downloadFont(font)"
+        class="cursor-pointer"
       >
-        <ContentList
-          v-for="font in nonHiddenFonts(entry.fonts)"
-          :key="font.filename"
-          @click="downloadFont(font)"
-          class="cursor-pointer"
-        >
-          <img class="h-8" :src="getFontPreview(font)" alt="Font Family" />
-          <ContentButtons>
-            <Download class="h-8" :size="30"  @click="downloadFont(font)"/>
-          </ContentButtons>
-        </ContentList>
-      </div>
+        <img class="h-8" :src="getFontPreview(font)" alt="Font Family" />
+        <ContentButtons>
+          <Download class="h-8" :size="30"  @click="downloadFont(font)"/>
+        </ContentButtons>
+      </ContentList>
     </ContentList>
   </div>
 </template>
@@ -42,10 +35,12 @@
 import ContentList from '@/components/ContentList.vue'
 import { API_URL } from '@/const'
 import JSZip from 'jszip'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Download, ArrowDown } from 'lucide-vue-next'
 import ContentButtons from '@/components/ContentButtons.vue'
-import MaxSearch from '@/components/MaxSearch.vue'
+import SearchBox from '@/components/SearchBox.vue'
+import { useDebounceFn } from '@vueuse/core'
+import { useRoute } from 'vue-router'
 type FontFamily = {
   name: string
   fonts: Font[]
@@ -59,13 +54,21 @@ type Font = {
   hidden: boolean
 }
 
+const route = useRoute()
+
 const results = ref<FontFamily[]>([])
 
-const search = ref('')
+const search = ref((route.query.search as string) || '')
 
 async function fetchSearch() {
   results.value = await (await fetch(API_URL + '/fonts/search?search=' + search.value)).json()
 }
+
+const debouncedFetchSearch = useDebounceFn(fetchSearch, 300)
+
+watch(search, () => {
+  debouncedFetchSearch()
+})
 await fetchSearch()
 
 function nonHiddenFonts(family: Font[]) {

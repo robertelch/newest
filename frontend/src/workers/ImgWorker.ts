@@ -1,5 +1,5 @@
 // ImgWorker.ts (worker)
-import { initializeImageMagick, ImageMagick, MagickFormat } from '@imagemagick/magick-wasm'
+import { initializeImageMagick, ImageMagick } from '@imagemagick/magick-wasm'
 
 let initialized = false
 
@@ -14,7 +14,7 @@ self.onmessage = async (event) => {
   const resultBlob = await ImageMagick.read(new Uint8Array(fileBuffer), async (image) => {
     image.format = format
     return new Promise<Blob>((resolve) => {
-      image.write((data) => resolve(new Blob([data])))
+      image.write((data) => resolve(new Blob([data as BlobPart])))
     })
   })
 

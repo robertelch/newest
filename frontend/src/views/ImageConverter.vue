@@ -73,7 +73,6 @@
 import { ref, type Ref } from 'vue'
 import Spinner from '@/components/Spinner.vue'
 import { MagickFormat } from '@imagemagick/magick-wasm'
-import Worker from '../workers/ImgWorker?worker'
 import JSZip from 'jszip'
 
 const formats = ['PNG', 'JPG', 'BMP', 'PSD', 'XCR'] as MagickFormat[]

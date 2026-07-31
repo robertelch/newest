@@ -17,9 +17,9 @@
 <script setup lang="ts">
 import MaxSearch from '@/components/MaxSearch.vue'
 
-const props = defineProps<{
+defineProps<{
   modelValue: string
-  results: unknown[]
+  results: object[]
   placeholder?: string
 }>()
 
@@ -34,5 +34,7 @@ function onInput(event: Event) {
   emit('update:modelValue', value)
   emit('input', value)
 }
+
+
 </script>
 
