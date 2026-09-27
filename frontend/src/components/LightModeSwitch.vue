@@ -1,25 +1,16 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { Moon, Sun } from "lucide-vue-next"; // or wherever your icons come from
+import { Moon, Sun } from "lucide-vue-next";
+import { useThemeStore } from "@/stores/theme";
 
-const isDark = ref(document.documentElement.classList.contains("dark"));
-
-watch(
-  isDark,
-  (dark) => {
-    document.documentElement.classList.toggle("dark", dark);
-  },
-  { immediate: true }
-);
-
-function toggleDarkMode() {
-  isDark.value = !isDark.value;
-}
+const themeStore = useThemeStore();
 </script>
 
 <template>
-  <button class="top-left-button bg-foreground p-3.5 m-2.5 rounded-lg shadow-[var(--shadow-subtle)] cursor-pointer right-0 bottom-0" @click="toggleDarkMode">
-    <Moon v-if="isDark" />
+  <button
+    class="top-left-button bg-foreground p-3.5 m-2.5 rounded-lg shadow-[var(--shadow-subtle)] cursor-pointer right-0 bottom-0"
+    @click="themeStore.toggleDarkMode"
+  >
+    <Moon v-if="themeStore.isDark" />
     <Sun v-else />
   </button>
 </template>

@@ -1,8 +1,8 @@
-japtlhelper.dedyn.io {
+jptlhelper.com {
 
     # Serve static files at /api/assets/* directly from disk
     handle_path /api/static/* {
-        root * /srv/assets  # Replace with the real path inside the Caddy container
+        root * /srv/assets
         file_server
     }
 
